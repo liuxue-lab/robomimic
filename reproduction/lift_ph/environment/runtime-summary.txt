@@ -1,0 +1,11 @@
+OS = Linux-6.8.0-138-generic-x86_64-with-glibc2.35
+PythonExecutable = /home/lx/miniforge3/envs/robot-il/bin/python
+PythonVersion = 3.11.16 (main, Sep  2 2026, 23:39:52) [GCC 15.3.0]
+TorchVersion = 2.7.1+cu128
+CUDAAvailable = True
+CUDADevice = NVIDIA GeForce RTX 5060 Laptop GPU
+MuJoCoVersion = 3.2.7
+RobomimicVersion = 0.4.0
+RobosuiteVersion = 1.5.1
+RobomimicPath = /home/lx/robomimic/robomimic/__init__.py
+RobosuitePath = /home/lx/projects/robot-il/vendor/robosuite/robosuite/__init__.py
