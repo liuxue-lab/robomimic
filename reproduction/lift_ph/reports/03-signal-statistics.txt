@@ -1,0 +1,31 @@
+SignalStatisticsErrorFound=False
+ActionStatisticsBegin
+Action[0]=delta_x min=-1.000000 p01=-0.273700 mean=0.172476 std=0.259176 median=0.106000 p99=0.796350 max=1.000000 at_minus_one=1 at_plus_one=10
+Action[1]=delta_y min=-0.560000 p01=-0.285350 mean=0.005815 std=0.129825 median=-0.001000 p99=0.360350 max=0.652000 at_minus_one=0 at_plus_one=0
+Action[2]=delta_z min=-1.000000 p01=-0.844350 mean=-0.168830 std=0.493942 median=-0.317000 p99=1.000000 max=1.000000 at_minus_one=20 at_plus_one=883
+Action[3]=delta_rx min=-0.150659 p01=-0.056239 mean=0.003080 std=0.022275 median=0.003863 p99=0.055847 max=0.118636 at_minus_one=0 at_plus_one=0
+Action[4]=delta_ry min=-1.000000 p01=-0.081384 mean=0.005131 std=0.063487 median=-0.014479 p99=0.169370 max=0.305093 at_minus_one=1 at_plus_one=0
+Action[5]=delta_rz min=-0.517975 p01=-0.175494 mean=0.011491 std=0.083427 median=0.001469 p99=0.255089 max=0.478234 at_minus_one=0 at_plus_one=0
+Action[6]=gripper min=-1.000000 p01=-1.000000 mean=-0.407614 std=0.913154 median=-1.000000 p99=1.000000 max=1.000000 at_minus_one=6803 at_plus_one=2863
+ActionStatisticsEnd
+GripperUniqueValueCount = 2
+GripperValue=-1.000000 Count=6803
+GripperValue=1.000000 Count=2863
+RewardOneTransitionCount = 1005
+DoneOneTransitionCount = 1005
+DemosWithRewardOne = 200
+DemosWithDoneOne = 200
+DemosEndingWithRewardOne = 200
+DemosEndingWithDoneOne = 200
+NonterminalDoneCount = 805
+RewardWithoutDoneCount = 0
+DoneWithoutRewardCount = 0
+Mask=20_percent DemoCount=40 TransitionCount=1992
+Mask=20_percent_train DemoCount=36 TransitionCount=1769
+Mask=20_percent_valid DemoCount=4 TransitionCount=223
+Mask=50_percent DemoCount=100 TransitionCount=4886
+Mask=50_percent_train DemoCount=90 TransitionCount=4362
+Mask=50_percent_valid DemoCount=10 TransitionCount=524
+Mask=train DemoCount=180 TransitionCount=8640
+Mask=valid DemoCount=20 TransitionCount=1026
+SignalStatisticsStatus = PASS
