@@ -2,7 +2,7 @@
 
 ## 1. 本阶段范围与状态
 
-本阶段在已完成的 State BC 与 State BC-RNN 实验基础上，核对共同设置和方法差异，提取完整训练期 rollout 曲线与冻结 checkpoint 后的独立评估结果，整理图表、解释实验边界，并准备项目入口文档与 Git 归档。
+本阶段在已完成的 State BC 与 State BC-RNN 实验基础上，核对共同设置和方法差异，提取完整训练期 rollout 曲线与冻结 checkpoint 后的独立评估结果，整理图表、解释实验边界，并完成项目入口文档与比较材料的 Git 归档。
 
 阶段 6 没有新增训练、没有重选 checkpoint、没有重新执行定量评估，也没有用独立评估成绩回选模型。报告依据阶段 5 交接记录，以及用户在当前会话实际执行并贴回的只读检查结果编写。
 
@@ -14,10 +14,11 @@
 | 对比图与 CSV | 已根据上述提取结果生成，并核对数据与版式 |
 | 概念理解讨论 | 已完成相关讲解与纠正；逐项记录见第 9 节 |
 | `Stage06DocumentationInspection` | COMPLETE，用户终端已确认 |
-| 本报告、项目 README 与附件放入用户仓库 | 文档生成时尚待用户执行 |
-| 本阶段 commit / push / Git 总验收 | 文档生成时尚待执行，不预先标记 PASS |
+| 比较材料初版放入用户仓库 | PASS，7 个新增文件的内容与范围均已核验 |
+| 本阶段比较材料 commit / push / Git 验收 | PASS，已归档提交 `5cd56793a2c6cbd1a152429fb1111fe1a141b741` |
+| 阶段 6 与核心七阶段 | PASS；后续文档记录同步不改变实验结论 |
 
-这是一份文档准备时的状态快照。附件生成不等于已经写入用户本机仓库；后续归档结果以用户真实终端输出为准。
+本报告的完成状态以用户已经执行并贴回的本地提交和远程验收结果为依据。归档时本地、远程跟踪分支及 GitHub HEAD 均为 `5cd56793a2c6cbd1a152429fb1111fe1a141b741`，领先/落后为 0/0，工作区干净。本次文档修订同步这些既有事实，并补记提交前检查故障及其修复；它不预先记载尚未发生的文档修订提交哈希。
 
 ## 2. 已核验的仓库与证据基线
 
@@ -301,7 +302,7 @@ BC 的历史训练期视频内存故障、复用实验名导致的后台交互�
 
 本表保留纠正过程，不把错误初答或简短判断冒充完整理解证明。阶段 4、5 已通过的理解问答没有重新进行整套重复验收。
 
-## 10. 项目目录、附件与待执行归档
+## 10. 项目目录、附件与 Git 验收
 
 用户实际目录检查确认，归档前 `reproduction/lift_ph` 有 24 个已列出的文件，包含原有配置、环境、阶段 0～5 报告、数据审计脚本及目录占位文件。项目级 README 和本阶段报告此前均不存在。仓库根 README 是上游项目入口，本阶段新增项目级入口。
 
@@ -321,14 +322,65 @@ reproduction/lift_ph/scripts/plot_stage06_comparison.py
 
 绘图脚本默认从其上级项目目录的 `results/` 读取 CSV，输出到 `media/`；可用 `--output-dir` 指定预览位置，现有环境无需为查看图件重装。具体重绘方法见[项目 README](../README.md)。
 
-后续依次执行：把已核验附件放入上述位置、检查文件和链接、精确暂存、普通 commit、普通 push 到个人 `origin/lift-ph-reproduction`，最后核对本地、跟踪分支、GitHub HEAD、领先/落后和工作区。只有完成这些实际步骤后，才标记阶段 6 与核心七阶段的最终归档验收通过。
+### 10.1 文件放置与首次提交检查
+
+用户从 `/home/lx/下载/robomimic-lift-ph-stage06-documents.zip` 读取原始文档包，核验包哈希及清单后新增上述 7 个文件。每个目标文件 SHA256 均匹配，Git 状态仅出现预期的 7 个未跟踪文件，`Stage06DocumentsPlacement=PASS`。
+
+原始包 SHA256 为 `6afdd6d28f472696e2924666c528ffe0e8432b4006132ee1cac9a152f81e789f`。这是首次放置时的历史版本，不是后续修正版包的哈希。
+
+首次提交脚本完成工作区内容核验和精确暂存后，在 `git diff --cached --check` 处中断。该次尚未执行 commit，已有暂存内容保留。异常只显示空白 `RuntimeError`，原因是包装函数只显示 stderr，漏掉了 Git 写在 stdout 中的诊断。
+
+### 10.2 SVG 行尾空格修复
+
+助手对与用户文件哈希一致的 SVG 副本检查，确认 Matplotlib 输出的路径数据有 6644 行带行尾空格；Git 的空白检查将其报告为 `trailing whitespace`。这是图件文本格式检查问题。
+
+修复范围仅为已经计划提交的两个文件：
+
+1. `media/stage06-bc-vs-bc-rnn.svg`：删除行尾 ASCII 空格和制表符，保留换行及图形路径数据。
+2. `scripts/plot_stage06_comparison.py`：在 SVG 保存后执行同样的清理，避免重绘时再次产生该问题。
+
+修复前后 XML 的规范化结构、属性与路径数据一致；修订脚本重新生成的 PNG 与原 PNG 逐字节一致，重新生成的 SVG 与清理后的 SVG 逐字节一致。助手在隔离临时仓库验证同样的暂存检查通过，随后用户在实际仓库执行恢复命令，也得到 `StagedWhitespaceCheck=PASS`。
+
+| 文件 | 修复前 SHA256 | 修复后 SHA256 |
+| --- | --- | --- |
+| SVG | `5e327a91bf2acf198036912eb942e485ab24a0fdcf000a4719b9057674f7b3fe` | `47ae4cdb6ee91e93149ddd4cea1e91e8bb56e62a95b8b58b44d376ddc0ea213f` |
+| 绘图脚本 | `b93813da3dede69afb12af18ef25dbec6277790faf308cbeb2bb174b1959a9cd` | `9bb3d065a628d3fc6207551b569aa990239addf07b2eba961a806fa88be66052` |
+
+恢复命令在执行修改前核验工作区、暂存区及文件内容，只更新已识别的版本；错误诊断改为同时显示命令、退出码、stdout 和 stderr。没有删除暂存内容、回滚仓库或跳过空白检查。
+
+### 10.3 已完成的本地提交与远程验收
+
+```text
+Commit = 5cd56793a2c6cbd1a152429fb1111fe1a141b741
+Parent = 46987cfc397ba04e28d6c65d9e3d3e690f34791b
+Subject = docs: compare Lift-PH state BC and BC-RNN
+CommittedFileCount = 7
+CommittedFileHashes = PASS
+Stage06ComparisonLocalCommit = PASS
+```
+
+本地提交完成后工作区干净，相对跟踪分支领先 1、落后 0。随后用户通过普通推送将该提交发送到个人 fork：
+
+```text
+Origin = git@github.com:liuxue-lab/robomimic.git
+PushRefspec = HEAD:refs/heads/lift-ph-reproduction
+RemoteBeforePush = 46987cfc397ba04e28d6c65d9e3d3e690f34791b
+LocalHEAD = 5cd56793a2c6cbd1a152429fb1111fe1a141b741
+RemoteTrackingHEAD = 5cd56793a2c6cbd1a152429fb1111fe1a141b741
+GitHubRemoteHEAD = 5cd56793a2c6cbd1a152429fb1111fe1a141b741
+AheadBehind = 0 0
+WorktreeCleanAfter = PASS
+Stage06ComparisonPushAcceptance = PASS
+```
+
+上述全部是用户实际终端输出中的已完成结果。阶段 0～6 核心复现的实验、比较材料与远程归档已完成；本次 README 和报告更新用于同步完成状态及故障记录。它不修改数据、策略、选择规则、评估结果或其他阶段报告。
 
 ## 11. 来源与追溯
 
 - [阶段 4：State BC 训练与评估报告](04-state-bc-training.md)
 - [阶段 5：State BC-RNN 训练与评估报告](05-state-bc-rnn-training.md)
 - [阶段 3：官方配置审计](03-state-bc-config-audit.md)
-- 当前会话用户执行并贴回的 `Stage06EvidencePreflight`、`Stage06ComparisonConfigAudit`、`Stage06ResultExtraction` 与 `Stage06DocumentationInspection` 输出。
+- 当前会话用户执行并贴回的 `Stage06EvidencePreflight`、`Stage06ComparisonConfigAudit`、`Stage06ResultExtraction`、`Stage06DocumentationInspection`、`Stage06DocumentsPlacement`、`Stage06ComparisonLocalCommit` 与 `Stage06ComparisonPushAcceptance` 输出，以及首次提交中断与恢复记录。
 - `robomimic-lift-ph-stage-05-handoff.md`：阶段 5 完成后的上下文、历史路径及证据边界。该独立交接文件不假定已经提交到仓库。
 
 本报告没有新增官方论文均值、标准差、效率排名或其他未核验的外部结论。全部数值限定于本项目已经记录的运行和评估。

@@ -38,9 +38,11 @@
 | 3 | 官方配置准备与审计 | [配置审计](reports/03-state-bc-config-audit.md) | PASS |
 | 4 | 普通 State BC 正式训练与评估 | [BC 报告](reports/04-state-bc-training.md) | PASS |
 | 5 | State BC-RNN 正式训练与评估 | [BC-RNN 报告](reports/05-state-bc-rnn-training.md) | PASS |
-| 6 | 同口径比较与项目总验收 | [对比报告](reports/06-state-bc-vs-bc-rnn-comparison.md) | 比较与图表已完成，正在整理文档；最终 Git 验收待执行 |
+| 6 | 同口径比较与项目总验收 | [对比报告](reports/06-state-bc-vs-bc-rnn-comparison.md) | PASS，比较材料已提交、推送并完成远程验收 |
 
-本 README 是阶段 6 文档整理时的状态快照。证据预检、配置比较及结果提取已由用户终端输出确认通过；文档复制、commit、push 和远程最终验收应以之后的实际终端输出为准。
+阶段 0～6 的核心复现已完成。阶段 6 比较材料提交为 `5cd56793a2c6cbd1a152429fb1111fe1a141b741`；用户终端已确认本地、远程跟踪分支与 GitHub HEAD 一致，领先/落后为 0/0，工作区干净。该提交是本 README 完成状态的验收依据；后续文档记录同步不改变实验结果。
+
+阶段 6 已修复生成 SVG 的行尾空格检查问题，绘图脚本会自动清理这类空格；恢复后 7 个文件的提交内容哈希与远程归档均已通过核验。具体过程见对比报告第 10 节。
 
 ## 3. 数据与训练设置
 
