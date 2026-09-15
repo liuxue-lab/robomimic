@@ -451,7 +451,39 @@ cf00e620005d60e4c20d198b9915281e227ab24545b13f42f2a1bd4cf0c02465
 `runs/` 中的 checkpoint、运行日志和视频不进入 Git。
 Git 只记录可复现步骤、配置来源、结果摘要和产物哈希。
 
-## 17. 当前阶段状态
+## 17. 独立理解验收
+
+报告提交并通过 Git 验收后，按照“一次一题、回答、纠正、复答”的方式完成了
+阶段 4 独立理解问答。首次回答不完整的题目均在解释后重新作答，不以照抄命令代替理解验收。
+
+| 序号 | 验收主题 | 验收结论 |
+|---:|---|---|
+| 1 | GMM 负对数似然为何可以为负数 | PASS |
+| 2 | 验证 Loss 与闭环 rollout 成功率的区别 | PASS |
+| 3 | epoch 600 checkpoint 的选择规则 | PASS |
+| 4 | 视频内存故障、关闭视频和唯一实验名称 | PASS |
+| 5 | 单 seed 结果与官方三 seeds 统计结果的边界 | PASS |
+| 6 | checkpoint、rollout 与模型选择偏差 | PASS |
+| 7 | 样本成功率与真实成功概率的区别 | PASS |
+| 8 | checkpoint 文件名与 SHA256 的作用 | PASS |
+| 9 | State BC 与 State BC-RNN 的公平比较条件 | PASS |
+
+关键理解结论：
+
+1. Checkpoint 是同一网络结构在不同训练时刻保存的参数快照；
+   rollout 是策略在环境中从重置到成功或达到 horizon 的一次完整闭环执行。
+2. 独立评估不能参与 checkpoint 选择，否则会产生选择偏差。
+3. `50/50` 和 `99/100` 都是有限样本成功率，不是真实成功概率的精确值。
+4. 本阶段只完成单 seed State BC，不能声称完成官方三 seeds 的统计复现。
+5. 当前结果不能用于判断 BC 与 BC-RNN 谁更好，因为 BC-RNN 尚未正式训练和评估。
+
+```text
+UnderstandingQuestionCount = 9
+UnderstandingRetryRequired = True
+Stage04UnderstandingAudit = PASS
+```
+
+## 18. 当前阶段状态
 
 ```text
 Stage04Preflight = PASS
@@ -463,9 +495,9 @@ Stage04OfficialSingleSeedComparison = PASS
 Stage04FullThreeSeedReproduction = NOT_PERFORMED
 Stage04EngineeringStatus = PASS
 Stage04DocumentationDraft = PASS
-Stage04GitAcceptance = NOT_YET_VERIFIED
-Stage04UnderstandingStatus = NOT_YET_VERIFIED
-Stage04OverallStatus = IN_PROGRESS
+Stage04GitAcceptance = PASS
+Stage04UnderstandingStatus = PASS
+Stage04OverallStatus = PASS
 ```
 
 阶段 4 只有在报告通过 Git 验收，并完成独立理解问答后，
