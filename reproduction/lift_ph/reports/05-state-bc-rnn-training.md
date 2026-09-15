@@ -491,17 +491,41 @@ Stage05PolicyVideoGeneration = PASS
 Stage05VideoVisualReview = PASS (user-confirmed)
 Stage05EngineeringStatus = PASS
 Stage05CoreConceptReview = COMPLETED_DURING_EXECUTION
+Stage05UnderstandingStatus = PASS
+Stage05InitialReportGitAcceptance = PASS
 Stage05FullThreeSeedReproduction = NOT_PERFORMED
 ```
 
-本报告在文档落盘和 Git 验收步骤中编制。报告检查、提交、推送、远程同步，
-以及阶段结束的结果理解核对，以后续实际验收记录为准；此处不预先标记整个阶段完成。
+初版报告共 511 行，SHA256 为
+`e1c448d3a8522f4501a41815459f6fa8aedc461b9523c621f9f5ce7eb8e1e99c`。
+归档提交为 `fa3d4bc1f648e0675dd37423c0424b6ccf94e045`，仅新增本报告。
+该提交已通过普通 push 推送至个人仓库 `origin/lift-ph-reproduction`；
+验收时本地 HEAD、远程跟踪分支和 GitHub 分支 HEAD 一致，领先/落后为 0/0，工作区干净。
+随后完成第 15 节的三项结果理解核对，本次修订补充相应验收记录。
+承载本次修订的提交编号以 Git 历史为准。
 
 `runs/` 中的 checkpoint、运行配置、日志和视频保持 Git 忽略。
-本次待纳入版本管理的文件为 `reproduction/lift_ph/reports/05-state-bc-rnn-training.md`。
+本阶段纳入版本管理的文件为 `reproduction/lift_ph/reports/05-state-bc-rnn-training.md`。
 阶段 6 再结合 [阶段 4 报告](04-state-bc-training.md) 进行同口径比较和项目总验收。
 
-## 15. 代码与证据来源
+## 15. 阶段结束的结果理解验收
+
+采用一次一题的问答方式核对，三个主题均已通过：
+
+| 主题 | 验收结论 | 结果 |
+| --- | --- | --- |
+| checkpoint 选择 | 先取训练期 rollout 成功率最高者，并列取最早 epoch，因此选择 epoch 300 | PASS |
+| 100/100 的含义 | 这是 100 次尝试的样本成功率，不能覆盖或保证所有可能的初始状态 | PASS（纠正后复答） |
+| 独立评估与模型选择 | 用评估结果挑选 checkpoint，就使该评估参与了模型选择，不能再作为独立评估 | PASS |
+
+第二题初答使用“某一次成功”描述，随后明确为“固定评估种子下 100 次 rollout 全部成功”。
+用户复答指出有限样本并不覆盖所有初始状态；通过依据为纠正后的回答。
+
+第三题同时澄清：本次“选择模型”主要指在同一 BC-RNN 网络结构下，
+选择不同训练 epoch 保存的网络参数版本。checkpoint 还包含配置等信息；
+这里并不是重新选择 LSTM 的层数或隐藏维度。
+
+## 16. 代码与证据来源
 
 - 官方配置：[state_bc_rnn_official.json](../configs/state_bc_rnn_official.json)。
 - 对照报告：[04-state-bc-training.md](04-state-bc-training.md)。
@@ -509,3 +533,4 @@ Stage05FullThreeSeedReproduction = NOT_PERFORMED
 - 评估入口：[run_trained_agent.py](https://github.com/liuxue-lab/robomimic/blob/323e2bf3901adc53b82bb4d8d6f73a4404948fd1/robomimic/scripts/run_trained_agent.py)。
 - 数值依据：本阶段配置、数据、前向审计和训练完成检查的终端输出，以及上述运行日志和协议文件。
 - 视频画面依据：用户在本地播放器中完成的观看确认。
+- 结果理解依据：阶段结束时的三项逐题问答及纠正后的复答。
