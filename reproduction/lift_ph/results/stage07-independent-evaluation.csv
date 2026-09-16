@@ -1,0 +1,2 @@
+method,algorithm,train_seed,completed_epochs,completed_updates,selected_epoch,selected_checkpoint_updates,evaluation_seed,evaluation_episodes,horizon_limit,terminate_on_success,success_count,success_rate,mean_horizon_all_episodes,mean_return,checkpoint_sha256,visual_inspection_episodes
+Vision BC,BC_GMM,1,600,300000,80,40000,20260915,100,400,True,100,1.0,46.47,1.0,4a2ebaa236f2621d0ac8ecc54e625f82ce2a374e2b908d330db92e0312314cec,5

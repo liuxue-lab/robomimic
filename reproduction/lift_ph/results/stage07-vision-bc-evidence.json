@@ -1,0 +1,774 @@
+{
+  "schema_version": 1,
+  "stage": 7,
+  "scope": "Vision BC extension to completed stages 0-6",
+  "status": "PASS",
+  "git_publication": "Not established by experiment evidence",
+  "verification_scope": {
+    "copied_configuration_bytes": "SHA256 checked during export",
+    "dataset_and_checkpoint_hashes": "Recorded values from prior accepted audits; binaries not rehashed during export",
+    "training_rollouts": "Parsed from existing console.log; no new training or evaluation",
+    "visual_inspection": "User confirmation of saved evaluation demos 0 through 4 only"
+  },
+  "configuration_differences": [
+    {
+      "field": "experiment.name",
+      "before": "core_bc_lift_ph_image",
+      "after": "core_bc_lift_ph_image_no_video_20260916-155536_ebb628cb_workers0"
+    },
+    {
+      "field": "experiment.render_video",
+      "before": true,
+      "after": false
+    },
+    {
+      "field": "train.data",
+      "before": "/home/lx/robomimic/datasets/lift/ph/image_v141.hdf5",
+      "after": "/home/lx/robomimic/datasets/lift/ph/image_v15.hdf5"
+    },
+    {
+      "field": "train.num_data_workers",
+      "before": 2,
+      "after": 0
+    }
+  ],
+  "dataset_audit": {
+    "status": "PASS",
+    "source_file": "/home/lx/robomimic/datasets/lift/ph/low_dim_v15.hdf5",
+    "source_sha256": "2067777cb8b532e9263dd09fd6448c41cc31224bb27be4a3b734010ae13eb540",
+    "image_file": "/home/lx/robomimic/datasets/lift/ph/image_v15.hdf5",
+    "image_sha256": "1708dbdd6087073a3665444bb4a4dd65e60564d632e2c712e109b2a0ced81632",
+    "image_bytes": 111469613,
+    "demo_count": 200,
+    "total_steps": 9666,
+    "train_demos": 180,
+    "valid_demos": 20,
+    "train_steps": 8640,
+    "valid_steps": 1026,
+    "all_masks_preserved": [
+      "20_percent",
+      "20_percent_train",
+      "20_percent_valid",
+      "50_percent",
+      "50_percent_train",
+      "50_percent_valid",
+      "train",
+      "valid"
+    ],
+    "states_actions_rewards_dones_match": true,
+    "low_dim_max_abs_errors": {
+      "robot0_eef_pos": 6.661338147750939e-16,
+      "robot0_eef_quat": 1.1102230246251565e-15,
+      "robot0_gripper_qpos": 0.0,
+      "object": 6.661338147750939e-16
+    },
+    "image_stats": {
+      "agentview": {
+        "frames": 9666,
+        "min": 6,
+        "max": 255
+      },
+      "robot0_eye_in_hand": {
+        "frames": 9666,
+        "min": 6,
+        "max": 255
+      }
+    },
+    "image_shape_per_demo": "(T, 84, 84, 3)",
+    "image_dtype": "uint8",
+    "compression": "gzip",
+    "next_obs_excluded": true
+  },
+  "failed_workers2_execution": {
+    "pid": 22769,
+    "started_at": "2026-09-16T08:23:41.877024+00:00",
+    "config_sha256": "a677d753269d58fad6dbd15ceae6f5014056aa67350197e6e1a2c9fe6791db91",
+    "status": "FAILED",
+    "error": "RuntimeError('DataLoader worker (pid 26885) is killed by signal: Aborted. ')",
+    "finished_at": "2026-09-16T08:34:10.844195+00:00",
+    "elapsed_seconds": 628.9671982730001
+  },
+  "successful_workers0_execution": {
+    "pid": 5277,
+    "started_at": "2026-09-16T14:23:19.032158+00:00",
+    "config_sha256": "0f66dd225bf4d56c58a35b54f692e2db0d67b76ad8915f55abf47bc9fd0b6f31",
+    "status": "COMPLETED",
+    "pytorch_peak_allocated_mib": 487.263671875,
+    "pytorch_peak_reserved_mib": 530.0,
+    "finished_at": "2026-09-16T18:50:17.867932+00:00",
+    "elapsed_seconds": 16018.83595
+  },
+  "training_audit_summary_as_recorded": {
+    "status": "PASS",
+    "config_sha256": "0f66dd225bf4d56c58a35b54f692e2db0d67b76ad8915f55abf47bc9fd0b6f31",
+    "run_directory": "/home/lx/robomimic/runs/lift_ph/vision_training/core/bc/lift/ph/image/trained_models/core_bc_lift_ph_image_no_video_20260916-155536_ebb628cb_workers0/20260916222324",
+    "data_workers": 0,
+    "train_epochs": 600,
+    "validation_epochs": 600,
+    "completed_epochs": 600,
+    "updates_from_epoch_logs": 300000,
+    "rollout_evaluations": 30,
+    "episodes_per_rollout_evaluation": 50,
+    "logged_metrics_finite": true,
+    "final_train_loss": -31.33991999053955,
+    "final_validation_loss": 3016043.4275,
+    "elapsed_seconds": 16018.83595,
+    "pytorch_peak_allocated_mib": 487.263671875,
+    "pytorch_peak_reserved_mib": 530.0,
+    "checkpoint_count": 30,
+    "selection_rule": "max_rollout_success_then_earliest_epoch",
+    "selected_epoch": 80,
+    "selected_training_rollout": {
+      "Horizon": 44.06,
+      "Return": 1.0,
+      "Success_Rate": 1.0,
+      "Time_Episode": 0.521936277548472,
+      "time": 0.6263235330581665
+    },
+    "selected_checkpoint": "/home/lx/robomimic/runs/lift_ph/vision_training/core/bc/lift/ph/image/trained_models/core_bc_lift_ph_image_no_video_20260916-155536_ebb628cb_workers0/20260916222324/models/model_epoch_80_Lift_success_1.0.pth",
+    "selected_checkpoint_sha256": "4a2ebaa236f2621d0ac8ecc54e625f82ce2a374e2b908d330db92e0312314cec",
+    "final_checkpoint": "/home/lx/robomimic/runs/lift_ph/vision_training/core/bc/lift/ph/image/trained_models/core_bc_lift_ph_image_no_video_20260916-155536_ebb628cb_workers0/20260916222324/models/model_epoch_600.pth",
+    "final_checkpoint_sha256": "66317268b0909c02f8214d2be53a7d34e5bbce25d4e9dc116f0e42559ab9127e",
+    "independent_evaluation": "PENDING"
+  },
+  "independent_evaluation_protocol": {
+    "checkpoint": "/home/lx/robomimic/runs/lift_ph/vision_training/core/bc/lift/ph/image/trained_models/core_bc_lift_ph_image_no_video_20260916-155536_ebb628cb_workers0/20260916222324/models/model_epoch_80_Lift_success_1.0.pth",
+    "checkpoint_sha256": "4a2ebaa236f2621d0ac8ecc54e625f82ce2a374e2b908d330db92e0312314cec",
+    "selected_epoch": 80,
+    "training_audit": "/home/lx/robomimic/runs/lift_ph/vision_full_train/core_bc_lift_ph_image_no_video_20260916-155536_ebb628cb_workers0/audit_73_crdba/training_audit.json",
+    "evaluation_seed": 20260915,
+    "n_rollouts": 100,
+    "horizon": 400,
+    "terminate_on_success": true,
+    "render_video": false,
+    "trajectory_file": "/home/lx/robomimic/runs/lift_ph/evaluation/vision_bc_epoch80_seed20260915_n100_eg6v6_dh/rollouts.hdf5",
+    "script_sha256": "998dcc15cb8a47219b56685cef8bad0d9286194d5faae543fd92db48c4307846",
+    "command": [
+      "/home/lx/miniforge3/envs/robot-il/bin/python",
+      "-B",
+      "-u",
+      "/home/lx/robomimic/robomimic/scripts/run_trained_agent.py",
+      "--agent",
+      "/home/lx/robomimic/runs/lift_ph/vision_training/core/bc/lift/ph/image/trained_models/core_bc_lift_ph_image_no_video_20260916-155536_ebb628cb_workers0/20260916222324/models/model_epoch_80_Lift_success_1.0.pth",
+      "--n_rollouts",
+      "100",
+      "--horizon",
+      "400",
+      "--seed",
+      "20260915",
+      "--dataset_path",
+      "/home/lx/robomimic/runs/lift_ph/evaluation/vision_bc_epoch80_seed20260915_n100_eg6v6_dh/rollouts.hdf5"
+    ]
+  },
+  "independent_evaluation_execution": {
+    "status": "PROCESS_COMPLETED",
+    "returncode": 0,
+    "elapsed_seconds": 146.5691141319985,
+    "checkpoint_unchanged": true
+  },
+  "evaluation_and_video_report": {
+    "evaluation_status": "PASS",
+    "checkpoint": "/home/lx/robomimic/runs/lift_ph/vision_training/core/bc/lift/ph/image/trained_models/core_bc_lift_ph_image_no_video_20260916-155536_ebb628cb_workers0/20260916222324/models/model_epoch_80_Lift_success_1.0.pth",
+    "checkpoint_sha256": "4a2ebaa236f2621d0ac8ecc54e625f82ce2a374e2b908d330db92e0312314cec",
+    "evaluation_seed": 20260915,
+    "rollout_count": 100,
+    "statistics": {
+      "Return": 1.0,
+      "Horizon": 46.47,
+      "Success_Rate": 1.0,
+      "Num_Success": 100.0
+    },
+    "saved_mean_horizon": 46.47,
+    "saved_mean_return": 1.0,
+    "trajectory_sha256": "6f2c213bf28bb60c36a57c970dc990ad7c23bf644e1b53e4bac7cced3d290c69",
+    "video_source_demos": [
+      "demo_0",
+      "demo_1",
+      "demo_2",
+      "demo_3",
+      "demo_4"
+    ],
+    "video_mode": "recorded_simulation_state_playback",
+    "video_path": "/home/lx/robomimic/runs/lift_ph/evaluation/vision_bc_epoch80_seed20260915_n100_eg6v6_dh/video5_ngahmsp3/vision_bc_epoch80_eval_first5.mp4",
+    "visual_inspection": "PASS",
+    "command": [
+      "/home/lx/miniforge3/envs/robot-il/bin/python",
+      "-B",
+      "-u",
+      "/home/lx/robomimic/robomimic/scripts/playback_dataset.py",
+      "--dataset",
+      "/home/lx/robomimic/runs/lift_ph/evaluation/vision_bc_epoch80_seed20260915_n100_eg6v6_dh/rollouts.hdf5",
+      "--n",
+      "5",
+      "--render_image_names",
+      "agentview",
+      "robot0_eye_in_hand",
+      "--video_skip",
+      "1",
+      "--video_path",
+      "/home/lx/robomimic/runs/lift_ph/evaluation/vision_bc_epoch80_seed20260915_n100_eg6v6_dh/video5_ngahmsp3/vision_bc_epoch80_eval_first5.mp4"
+    ],
+    "episodes": [
+      {
+        "demo": "demo_0",
+        "horizon": 47,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_1",
+        "horizon": 42,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_2",
+        "horizon": 52,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_3",
+        "horizon": 35,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_4",
+        "horizon": 39,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_5",
+        "horizon": 50,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_6",
+        "horizon": 148,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_7",
+        "horizon": 46,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_8",
+        "horizon": 37,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_9",
+        "horizon": 44,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_10",
+        "horizon": 39,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_11",
+        "horizon": 52,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_12",
+        "horizon": 51,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_13",
+        "horizon": 46,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_14",
+        "horizon": 42,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_15",
+        "horizon": 43,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_16",
+        "horizon": 45,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_17",
+        "horizon": 58,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_18",
+        "horizon": 46,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_19",
+        "horizon": 43,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_20",
+        "horizon": 40,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_21",
+        "horizon": 49,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_22",
+        "horizon": 49,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_23",
+        "horizon": 41,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_24",
+        "horizon": 41,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_25",
+        "horizon": 43,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_26",
+        "horizon": 37,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_27",
+        "horizon": 43,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_28",
+        "horizon": 57,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_29",
+        "horizon": 39,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_30",
+        "horizon": 35,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_31",
+        "horizon": 37,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_32",
+        "horizon": 37,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_33",
+        "horizon": 38,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_34",
+        "horizon": 38,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_35",
+        "horizon": 44,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_36",
+        "horizon": 44,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_37",
+        "horizon": 41,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_38",
+        "horizon": 41,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_39",
+        "horizon": 38,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_40",
+        "horizon": 46,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_41",
+        "horizon": 36,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_42",
+        "horizon": 36,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_43",
+        "horizon": 44,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_44",
+        "horizon": 44,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_45",
+        "horizon": 38,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_46",
+        "horizon": 47,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_47",
+        "horizon": 46,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_48",
+        "horizon": 78,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_49",
+        "horizon": 44,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_50",
+        "horizon": 46,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_51",
+        "horizon": 45,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_52",
+        "horizon": 47,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_53",
+        "horizon": 63,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_54",
+        "horizon": 54,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_55",
+        "horizon": 42,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_56",
+        "horizon": 38,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_57",
+        "horizon": 40,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_58",
+        "horizon": 36,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_59",
+        "horizon": 45,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_60",
+        "horizon": 41,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_61",
+        "horizon": 43,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_62",
+        "horizon": 45,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_63",
+        "horizon": 40,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_64",
+        "horizon": 44,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_65",
+        "horizon": 42,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_66",
+        "horizon": 44,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_67",
+        "horizon": 40,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_68",
+        "horizon": 36,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_69",
+        "horizon": 43,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_70",
+        "horizon": 39,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_71",
+        "horizon": 47,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_72",
+        "horizon": 40,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_73",
+        "horizon": 42,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_74",
+        "horizon": 42,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_75",
+        "horizon": 42,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_76",
+        "horizon": 196,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_77",
+        "horizon": 39,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_78",
+        "horizon": 48,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_79",
+        "horizon": 42,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_80",
+        "horizon": 50,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_81",
+        "horizon": 43,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_82",
+        "horizon": 52,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_83",
+        "horizon": 31,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_84",
+        "horizon": 42,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_85",
+        "horizon": 44,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_86",
+        "horizon": 46,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_87",
+        "horizon": 43,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_88",
+        "horizon": 40,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_89",
+        "horizon": 39,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_90",
+        "horizon": 46,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_91",
+        "horizon": 41,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_92",
+        "horizon": 46,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_93",
+        "horizon": 39,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_94",
+        "horizon": 46,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_95",
+        "horizon": 55,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_96",
+        "horizon": 45,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_97",
+        "horizon": 53,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_98",
+        "horizon": 46,
+        "return": 1.0
+      },
+      {
+        "demo": "demo_99",
+        "horizon": 53,
+        "return": 1.0
+      }
+    ],
+    "video_returncode": 0,
+    "video_elapsed_seconds": 12.050727156001813,
+    "trajectory_unchanged": true,
+    "video_bytes": 713552,
+    "visual_inspection_details": {
+      "confirmed_by": "user",
+      "confirmed_at": "2026-09-16T19:24:35.838756+00:00",
+      "scope": [
+        "demo_0",
+        "demo_1",
+        "demo_2",
+        "demo_3",
+        "demo_4"
+      ],
+      "user_feedback": "没有一切正常",
+      "note": "用户确认前5条回放正常；不代表人工观看了全部100条。"
+    }
+  },
+  "historical_record_note": "Any PENDING independent_evaluation field in the earlier training audit is preserved as historical; the later evaluation/video report records completion.",
+  "source_files": {
+    "runs/lift_ph/vision_config_audit/generated_DrZ9PC/configs/core/lift/ph/image/bc.json": {
+      "sha256": "01928b478a329021a631fae6569c659a8fc72c9cb8f514955900babbe4ea86c1",
+      "bytes": 7017
+    },
+    "runs/lift_ph/vision_full_train/core_bc_lift_ph_image_no_video_20260916-155536_ebb628cb_workers0/config.snapshot.json": {
+      "sha256": "0f66dd225bf4d56c58a35b54f692e2db0d67b76ad8915f55abf47bc9fd0b6f31",
+      "bytes": 7061
+    },
+    "runs/lift_ph/vision_full_train/core_bc_lift_ph_image_no_video_20260916-155536_ebb628cb_workers0/execution.json": {
+      "sha256": "a04055f9e3584e5fd03843d2662f31d0d40838d1b3dbc205029b7aea580f552b",
+      "bytes": 354
+    },
+    "runs/lift_ph/vision_full_train/core_bc_lift_ph_image_no_video_20260916-155536_ebb628cb_workers0/audit_73_crdba/training_audit.json": {
+      "sha256": "fca546640553035ea1f8817a2dbb24d13bfc194093a9d1f1323dce2f51a10a81",
+      "bytes": 558149
+    },
+    "runs/lift_ph/vision_full_train/core_bc_lift_ph_image_no_video_20260916-155536_ebb628cb_workers0/console.log": {
+      "sha256": "934f68b2ab981d87a9c899914d6e6ebd4bcce944143a6d0e2c9853165a778faa",
+      "bytes": 6109558
+    },
+    "runs/lift_ph/vision_data/extract_SklstU/audit_2gy0n38h/dataset_audit.json": {
+      "sha256": "d5f608aae6518926d6a69c121d68c619abd1c61e5dbce86632caeb9e08c72f93",
+      "bytes": 1248
+    },
+    "runs/lift_ph/vision_full_train/core_bc_lift_ph_image_no_video_20260916-155536_ebb628cb/execution.json": {
+      "sha256": "08e77b87c578bae4bcbb3c33bad686fd2043fa7997a72bdec4fcbbf5730e57fb",
+      "bytes": 364
+    },
+    "runs/lift_ph/evaluation/vision_bc_epoch80_seed20260915_n100_eg6v6_dh/protocol.json": {
+      "sha256": "751e7b189360cf0ae9227d73b17a79f4e806940be9b099dc0a1a9658b4687485",
+      "bytes": 1464
+    },
+    "runs/lift_ph/evaluation/vision_bc_epoch80_seed20260915_n100_eg6v6_dh/execution.json": {
+      "sha256": "878d28f86eae0a2af24fbab33037be85e62d160efb77ccb0f04ba1c34dd7a955",
+      "bytes": 127
+    },
+    "runs/lift_ph/evaluation/vision_bc_epoch80_seed20260915_n100_eg6v6_dh/video5_ngahmsp3/evaluation_and_video_report.json": {
+      "sha256": "3bcd397003fcc6c79fad5fe243e17e5b0bb1e9c061ed3e2cf6f7f8249f92630f",
+      "bytes": 9974
+    }
+  }
+}

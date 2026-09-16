@@ -1,10 +1,10 @@
 # robomimic Lift-PH 教学型复现
 
-使用 robomimic v0.4.0 与 robosuite v1.5.1，在 Lift-PH low-dim 数据集上复现普通 State BC 和 State BC-RNN。通过专家数据审计、仿真回放、官方配置核对、正式训练、冻结 checkpoint 后的独立评估及比较分析，形成可追溯的机器人模仿学习实验记录。
+使用 robomimic v0.4.0 与 robosuite v1.5.1，在 Lift-PH 数据集上完成普通 State BC、State BC-RNN 的核心复现，并拓展到双相机 RGB 与机器人本体状态输入的 Vision BC。通过数据审计、仿真回放、配置核对、正式训练和冻结 checkpoint 后的独立评估，形成可追溯的机器人模仿学习实验记录。
 
-本项目使用低维状态输入和仿真环境，不需要实体机械臂。它是单训练种子的教学型复现，不代表完成了多种子统计复现、视觉策略或真机迁移验证。
+本项目使用仿真环境，不需要实体机械臂。阶段 0～6 完成低维状态策略的核心复现，阶段 7 完成视觉 BC 拓展；各方法均只有一个训练种子，未完成多训练种子统计复现或真机迁移验证。
 
-## 1. 当前结果
+## 1. 核心 State 复现结果
 
 | 项目 | State BC | State BC-RNN |
 | --- | ---: | ---: |
@@ -39,12 +39,13 @@
 | 4 | 普通 State BC 正式训练与评估 | [BC 报告](reports/04-state-bc-training.md) | PASS |
 | 5 | State BC-RNN 正式训练与评估 | [BC-RNN 报告](reports/05-state-bc-rnn-training.md) | PASS |
 | 6 | 同口径比较与项目总验收 | [对比报告](reports/06-state-bc-vs-bc-rnn-comparison.md) | PASS，比较材料已提交、推送并完成远程验收 |
+| 7（拓展） | 双相机 Vision BC 数据、训练、故障恢复与评估 | [视觉 BC 报告](reports/07-vision-bc-training.md) | PASS，完整训练、独立评估与前 5 条视频人工验收 |
 
 阶段 0～6 的核心复现已完成。阶段 6 比较材料提交为 `5cd56793a2c6cbd1a152429fb1111fe1a141b741`；用户终端已确认本地、远程跟踪分支与 GitHub HEAD 一致，领先/落后为 0/0，工作区干净。该提交是本 README 完成状态的验收依据；后续文档记录同步不改变实验结果。
 
 阶段 6 已修复生成 SVG 的行尾空格检查问题，绘图脚本会自动清理这类空格；恢复后 7 个文件的提交内容哈希与远程归档均已通过核验。具体过程见对比报告第 10 节。
 
-## 3. 数据与训练设置
+## 3. 核心 State 复现的数据与训练设置
 
 数据文件为 `datasets/lift/ph/low_dim_v15.hdf5`，相对于仓库根目录。共 200 条专家轨迹、9666 个时间步；按整条轨迹划分为 180 条训练轨迹和 20 条验证轨迹，对应 8640 / 1026 个时间步。
 
@@ -82,15 +83,15 @@
 
 | 目录 | 内容 |
 | --- | --- |
-| `configs/` | 已验收的两份官方配置 |
+| `configs/` | State / Vision 官方配置及成功训练的 Vision 运行配置 |
 | `environment/` | 环境与源码版本记录 |
 | `reports/` | 各阶段报告 |
-| `scripts/` | 数据审计与本阶段绘图脚本 |
-| `results/` | 从已验收日志提取的轻量 CSV 结果表 |
+| `scripts/` | 数据审计、阶段 6 绘图及阶段 7 结果导出脚本 |
+| `results/` | 已验收日志的轻量 CSV 结果表及视觉实验 JSON 证据 |
 | `media/` | 对比图 PNG / SVG |
 | 仓库根目录下 `runs/lift_ph/` | 运行配置、训练日志、checkpoint、评估日志与视频等本机证据，不入 Git |
 
-## 5. 查看与复用结果
+## 5. 查看与复用核心 State 结果
 
 - [完整训练期成功率数据](results/stage06-training-rollouts.csv)
 - [独立评估结果与参数](results/stage06-independent-evaluation.csv)
@@ -118,4 +119,30 @@ CSV 是本次已验收终端提取结果的快照，不是新运行结果，也�
 5. 首次达到训练期 50/50 后，按当前选择规则，后面的并列 50/50 不会替换该 checkpoint；本次继续至 2000 epoch 是执行固定预算协议并记录完整曲线。
 6. 100/100 是有限样本结果，不是所有初始状态的成功保证。要研究跨训练随机性的稳定性，需要另行设计多个训练种子的实验。
 
-Vision BC、VLA 微调、强化学习和真机部署属于后续拓展，不计入当前七阶段核心复现。
+Vision BC 已作为阶段 7 拓展完成实验验收，结果见下节。阶段 0～6 的七阶段核心复现范围保持不变；VLA 微调、强化学习和真机部署仍属于后续工作。
+
+## 7. Vision BC 拓展结果
+
+在相同 200 条专家轨迹的仿真状态上重建两路 84 × 84 RGB 观测。策略使用双路图像与 9 维机器人本体状态，不使用 `object` 真值作为网络输入。
+
+| 项目 | Vision BC |
+| --- | --- |
+| 网络 | 两路 ResNet18Conv + SpatialSoftmax，融合 9 维本体状态，MLP + 5 分量 GMM |
+| 参数量 / batch size | 23,661,963 / 16 |
+| 完整训练预算 | seed 1，600 epoch × 500 更新 = 300000 更新 |
+| 成功训练 DataLoader workers | 0 |
+| 选定 checkpoint | epoch 80；训练期成功 50/50 |
+| 独立评估 | seed 20260915，100 次，horizon 上限 400 |
+| 独立评估成功数 / 平均 Horizon | 100/100 / 46.47 |
+| 人工视觉检查 | 同一次独立评估的前 5 条状态回放，PASS |
+
+首次 workers=2 运行在 epoch 40 完成后发生 DataLoader 子进程中止；保留失败记录后，以 workers=0 和相同训练种子从头完成整个预算。选定 epoch 80 不表示只训练了 80 epoch；独立评估没有参与模型选择。
+
+State BC、State BC-RNN、Vision BC 的独立评估成功数分别为 99/100、100/100、100/100。三组只有单训练种子，视觉实验的输入、batch size 与更新预算也不同，因此不把这组结果解释为方法优劣的统计结论或单因素消融。相同评估 seed 不自动构成严格的逐回合配对。
+
+- [阶段 7 完整报告](reports/07-vision-bc-training.md)
+- [Vision BC 官方配置](configs/vision_bc_official.json) / [成功运行配置](configs/vision_bc_runtime_workers0.json)
+- [完整训练期评估数据](results/stage07-training-rollouts.csv) / [独立评估数据](results/stage07-independent-evaluation.csv)
+- [轻量审计证据](results/stage07-vision-bc-evidence.json) / [本机记录导出脚本](scripts/export_stage07_vision_results.py)
+
+视觉数据、模型、完整日志和视频保留在本机 `datasets/` 与 `runs/`。视频仅回放原评估的前 5 条轨迹，没有新增评估回合；100/100 仍是有限样本结果。
