@@ -1,8 +1,8 @@
 # robomimic Lift-PH 教学型复现
 
-使用 robomimic v0.4.0 与 robosuite v1.5.1，在 Lift-PH 数据集上完成普通 State BC、State BC-RNN 的核心复现，并拓展到双相机 RGB 与机器人本体状态输入的 Vision BC。通过数据审计、仿真回放、配置核对、正式训练和冻结 checkpoint 后的独立评估，形成可追溯的机器人模仿学习实验记录。
+使用 robomimic v0.4.0 与 robosuite v1.5.1，在 Lift-PH 数据集上完成普通 State BC、State BC-RNN 的核心复现，并拓展到双相机 RGB 与机器人本体状态输入的 Vision BC。通过数据审计、仿真回放、配置核对、正式训练和冻结 checkpoint 后的独立评估，形成可追溯的机器人模仿学习实验记录。阶段 8 进一步把冻结的 Vision BC 部署到 Jetson Orin，通过独立以太网完成处理器在环推理、网络闭环和 20 Hz 时序验收。
 
-本项目使用仿真环境，不需要实体机械臂。阶段 0～6 完成低维状态策略的核心复现，阶段 7 完成视觉 BC 拓展；各方法均只有一个训练种子，未完成多训练种子统计复现或真机迁移验证。
+本项目的 plant 仍是笔记本上的 Lift 仿真环境，不需要实体机械臂。阶段 0～6 完成低维状态策略的核心复现，阶段 7 完成视觉 BC 拓展，阶段 8 验证 Jetson 实机处理器上的推理与网络化软实时闭环；各方法均只有一个训练种子，未完成多训练种子统计复现或实体机械臂迁移验证。
 
 ## 1. 核心 State 复现结果
 
@@ -40,6 +40,9 @@
 | 5 | State BC-RNN 正式训练与评估 | [BC-RNN 报告](reports/05-state-bc-rnn-training.md) | PASS |
 | 6 | 同口径比较与项目总验收 | [对比报告](reports/06-state-bc-vs-bc-rnn-comparison.md) | PASS，比较材料已提交、推送并完成远程验收 |
 | 7（拓展） | 双相机 Vision BC 数据、训练、故障恢复与评估 | [视觉 BC 报告](reports/07-vision-bc-training.md) | PASS，完整训练、独立评估与前 5 条视频人工验收 |
+| 8（拓展） | Jetson Orin 处理器在环推理、网络闭环与 20 Hz 评估 | [Jetson HIL 报告](reports/08-jetson-hil-evaluation.md) | `COMPLETED_WITH_RECORDED_DEVIATION`：功能与时序通过，正式评估 99/100 |
+
+阶段 8 的 100 回合执行完整性通过，但严格 100/100 全成功门禁失败。唯一失败的 episode 53 具有连续请求、正常服务器响应、零 deadline miss 和有限动作，分类为有效策略 rollout 达到 horizon；因此保留 99/100 原始结果，不通过重跑或挑选结果改写。
 
 阶段 0～6 的核心复现已完成。阶段 6 比较材料提交为 `5cd56793a2c6cbd1a152429fb1111fe1a141b741`；用户终端已确认本地、远程跟踪分支与 GitHub HEAD 一致，领先/落后为 0/0，工作区干净。该提交是本 README 完成状态的验收依据；后续文档记录同步不改变实验结果。
 
@@ -86,8 +89,8 @@
 | `configs/` | State / Vision 官方配置及成功训练的 Vision 运行配置 |
 | `environment/` | 环境与源码版本记录 |
 | `reports/` | 各阶段报告 |
-| `scripts/` | 数据审计、阶段 6 绘图及阶段 7 结果导出脚本 |
-| `results/` | 已验收日志的轻量 CSV 结果表及视觉实验 JSON 证据 |
+| `scripts/` | 数据审计、阶段 6 绘图、阶段 7 结果导出及阶段 8 协议、服务器、客户端与分析脚本 |
+| `results/` | 已验收日志的轻量 CSV 结果表，以及视觉实验与 Jetson 环境 JSON 证据 |
 | `media/` | 对比图 PNG / SVG |
 | 仓库根目录下 `runs/lift_ph/` | 运行配置、训练日志、checkpoint、评估日志与视频等本机证据，不入 Git |
 
@@ -119,7 +122,7 @@ CSV 是本次已验收终端提取结果的快照，不是新运行结果，也�
 5. 首次达到训练期 50/50 后，按当前选择规则，后面的并列 50/50 不会替换该 checkpoint；本次继续至 2000 epoch 是执行固定预算协议并记录完整曲线。
 6. 100/100 是有限样本结果，不是所有初始状态的成功保证。要研究跨训练随机性的稳定性，需要另行设计多个训练种子的实验。
 
-Vision BC 已作为阶段 7 拓展完成实验验收，结果见下节。阶段 0～6 的七阶段核心复现范围保持不变；VLA 微调、强化学习和真机部署仍属于后续工作。
+Vision BC 已作为阶段 7 拓展完成实验验收，Jetson 处理器在环推理已作为阶段 8 拓展完成并记录偏差。阶段 0～6 的七阶段核心复现范围保持不变；VLA 微调、强化学习和实体机械臂部署仍属于后续工作。
 
 ## 7. Vision BC 拓展结果
 
@@ -146,3 +149,28 @@ State BC、State BC-RNN、Vision BC 的独立评估成功数分别为 99/100、1
 - [轻量审计证据](results/stage07-vision-bc-evidence.json) / [本机记录导出脚本](scripts/export_stage07_vision_results.py)
 
 视觉数据、模型、完整日志和视频保留在本机 `datasets/` 与 `runs/`。视频仅回放原评估的前 5 条轨迹，没有新增评估回合；100/100 仍是有限样本结果。
+
+## 8. Jetson Orin 处理器在环拓展结果
+
+阶段 8 冻结阶段 7 的 epoch 80 checkpoint。RTX 5060 笔记本运行 Lift 仿真，Jetson Orin Nano Super 8GB 通过 `192.168.50.1/24 ↔ 192.168.50.2/24` 独立以太网执行 Vision BC 推理。
+
+| 项目 | 阶段 8 结果 |
+| --- | --- |
+| checkpoint | epoch 80，SHA256 `4a2ebaa2...2314cec` |
+| 固定输入跨设备检查 | 分布参数与 winning-mode action 最大差均小于 `1e-4`，PASS |
+| 单回合网络闭环 | 1/1 成功，Horizon 47，视频人工检查 PASS |
+| 20 Hz paced benchmark | 1000 次，p99 43.840 ms，最大 44.789 ms，0 timeout，0 deadline miss |
+| 正式评估 | seed 20260915，99/100，全部回合平均 Horizon 51.23 |
+| 与阶段 7 的配对条件 | 100/100 初始物理状态完全一致，最大差 0 |
+| 唯一失败 | episode 53，400 步达到 horizon；网络与协议路径正常 |
+| 最终分类 | `COMPLETED_WITH_RECORDED_DEVIATION` |
+
+阶段 7 与阶段 8 的配对成功数分别为 100/100 和 99/100，精确双侧 McNemar p 值为 1.0。该有限样本没有检出显著成功率差异，但不构成等价性证明。阶段 8 严格全成功门禁保持 FAIL，不把完整执行或网络路径 PASS 混写为 100/100 成功。
+
+- [阶段 8 完整报告](reports/08-jetson-hil-evaluation.md)
+- [协议配置](configs/stage08-hil-protocol.json)
+- [环境审计](results/stage08-environment-audit.json)
+- [20 Hz 延迟与资源摘要](results/stage08-latency-summary.csv)
+- [正式 100 回合评估摘要](results/stage08-independent-evaluation.csv)
+
+阶段 8 的大型逐步日志、HDF5、checkpoint、视频和 Jetson tegrastats 继续保存在双机 `runs/` 目录，不纳入 Git。当前结果属于网络化处理器在环与软实时评估，不是严格硬实时证明，也不是实体机械臂真机抓取。

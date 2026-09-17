@@ -1,0 +1,437 @@
+{
+  "acceptance": {
+    "checks": {
+      "chrony_active": true,
+      "jetson_live_audit": true,
+      "jetson_reachable": true,
+      "laptop_clock_synchronized": true,
+      "laptop_cuda_available": true,
+      "laptop_direct_ipv4": true,
+      "laptop_identity": true,
+      "ntp_server_listening": true,
+      "raw_evidence_hashes": true,
+      "repo_artifact_hashes": true,
+      "repository_branch": true,
+      "repository_head": true,
+      "tracked_worktree_clean": true
+    },
+    "status": "PASS"
+  },
+  "audit_name": "Jetson HIL environment audit",
+  "generated_at": "2026-09-18T01:26:39.573573+08:00",
+  "jetson": {
+    "acceptance": {
+      "checks": {
+        "architecture": true,
+        "artifact_hashes": true,
+        "cuda_available": true,
+        "direct_ipv4": true,
+        "gpu_orin": true,
+        "identity": true,
+        "jetson_model": true,
+        "l4t_36_4_3": true,
+        "maxn_super": true,
+        "ntp_enabled": true,
+        "ntp_synchronized": true,
+        "nvidia_torch_preserved": true,
+        "port_8765_available": true,
+        "required_paths": true,
+        "root_available_at_least_100_gib": true,
+        "root_filesystem_expanded": true,
+        "ubuntu_22_04": true,
+        "wakeword_disabled": true
+      },
+      "status": "PASS"
+    },
+    "artifact_hashes": {
+      "checkpoint": {
+        "actual": "4a2ebaa236f2621d0ac8ecc54e625f82ce2a374e2b908d330db92e0312314cec",
+        "expected": "4a2ebaa236f2621d0ac8ecc54e625f82ce2a374e2b908d330db92e0312314cec",
+        "match": true
+      },
+      "policy_server": {
+        "actual": "b457a755dc52d38e54a57f33fa9735a6cf122d549341308660bbbcae538b86c3",
+        "expected": "b457a755dc52d38e54a57f33fa9735a6cf122d549341308660bbbcae538b86c3",
+        "match": true
+      },
+      "protocol_config": {
+        "actual": "4436233ea0f3e62f57d4c97f12f19eb206bddd24707faab33da9167f00041501",
+        "expected": "4436233ea0f3e62f57d4c97f12f19eb206bddd24707faab33da9167f00041501",
+        "match": true
+      },
+      "protocol_module": {
+        "actual": "14629cd529b6fd5da70f73c4bcc6081b5c6d63e13c0430a3eb55addbbddeba28",
+        "expected": "14629cd529b6fd5da70f73c4bcc6081b5c6d63e13c0430a3eb55addbbddeba28",
+        "match": true
+      }
+    },
+    "clock": {
+      "iso8601": "2026-09-18T01:26:33.173906+08:00",
+      "ntp_enabled": "yes",
+      "ntp_synchronized": "yes",
+      "timesync_status": {
+        "command": [
+          "timedatectl",
+          "timesync-status",
+          "--no-pager"
+        ],
+        "exit_code": 0,
+        "stderr": "",
+        "stdout": "Server: 192.168.50.1 (192.168.50.1)\nPoll interval: 34min 8s (min: 32s; max 34min 8s)\n         Leap: normal\n      Version: 4\n      Stratum: 3\n    Reference: 53F3449D\n    Precision: 1us (-20)\nRoot distance: 8.773ms (max: 5s)\n       Offset: -1.698ms\n        Delay: 239us\n       Jitter: 4.765ms\n Packet count: 12\n    Frequency: +27.297ppm"
+      }
+    },
+    "identity": {
+      "architecture": "aarch64",
+      "hostname": "yahboom",
+      "model": "NVIDIA Jetson Orin Nano Engineering Reference Developer Kit Super",
+      "user": "jetson"
+    },
+    "memory": {
+      "available_mib": 5174.102,
+      "swap_free_mib": 12001.902,
+      "swap_total_mib": 12001.902,
+      "total_mib": 7619.824
+    },
+    "network": {
+      "interface": "enP8p1s0",
+      "ipv4_addresses": [
+        "192.168.50.2/24"
+      ],
+      "ipv4_routes": [
+        {
+          "dev": "wlP1p1s0",
+          "dst": "default",
+          "flags": [],
+          "gateway": "192.168.1.1",
+          "metric": 20600,
+          "protocol": "static"
+        },
+        {
+          "dev": "docker0",
+          "dst": "169.254.0.0/16",
+          "flags": [
+            "linkdown"
+          ],
+          "metric": 1000,
+          "scope": "link"
+        },
+        {
+          "dev": "docker0",
+          "dst": "172.17.0.0/16",
+          "flags": [
+            "linkdown"
+          ],
+          "prefsrc": "172.17.0.1",
+          "protocol": "kernel",
+          "scope": "link"
+        },
+        {
+          "dev": "wlP1p1s0",
+          "dst": "192.168.1.0/24",
+          "flags": [],
+          "metric": 600,
+          "prefsrc": "192.168.1.11",
+          "protocol": "kernel",
+          "scope": "link"
+        },
+        {
+          "dev": "enP8p1s0",
+          "dst": "192.168.50.0/24",
+          "flags": [],
+          "metric": 100,
+          "prefsrc": "192.168.50.2",
+          "protocol": "kernel",
+          "scope": "link"
+        }
+      ],
+      "port_8765_listeners": []
+    },
+    "observed_at": "2026-09-18T01:26:33.121301+08:00",
+    "python_cuda": {
+      "cuda_available": true,
+      "gpu": "Orin",
+      "python_executable": "/home/jetson/venvs/robomimic-hil/bin/python",
+      "python_version": "3.10.12",
+      "torch_cuda": "12.6",
+      "torch_version": "2.5.0a0+872d972e41.nv24.08"
+    },
+    "required_paths": {
+      "checkpoint": {
+        "exists": true,
+        "path": "/home/jetson/robomimic-hil/checkpoints/model_epoch_80_Lift_success_1.0.pth"
+      },
+      "reports": {
+        "exists": true,
+        "path": "/home/jetson/robomimic-hil/reports"
+      },
+      "robomimic_source": {
+        "exists": true,
+        "path": "/home/jetson/robomimic-hil/source/robomimic-src"
+      },
+      "runs": {
+        "exists": true,
+        "path": "/home/jetson/robomimic-hil/runs"
+      },
+      "venv_python": {
+        "exists": true,
+        "path": "/home/jetson/venvs/robomimic-hil/bin/python"
+      }
+    },
+    "root_storage": {
+      "filesystem_available_bytes": 171099529216,
+      "filesystem_available_gib": 159.349,
+      "filesystem_total_bytes": 249367699456,
+      "filesystem_total_gib": 232.242,
+      "filesystem_used_bytes": 67346190336,
+      "filesystem_used_gib": 62.721,
+      "partition": "/dev/nvme0n1p1",
+      "partition_size_bytes": 254498872832,
+      "partition_size_gib": 237.021,
+      "source_and_filesystem": "/dev/nvme0n1p1 ext4"
+    },
+    "system": {
+      "cuda_compiler": {
+        "command": [
+          "/usr/local/cuda/bin/nvcc",
+          "--version"
+        ],
+        "exit_code": 0,
+        "stderr": "",
+        "stdout": "nvcc: NVIDIA (R) Cuda compiler driver\nCopyright (c) 2005-2024 NVIDIA Corporation\nBuilt on Tue_Oct_29_23:53:06_PDT_2024\nCuda compilation tools, release 12.6, V12.6.85\nBuild cuda_12.6.r12.6/compiler.35059454_0"
+      },
+      "kernel": "5.15.148-tegra",
+      "nv_tegra_release": "# R36 (release), REVISION: 4.3, GCID: 38968081, BOARD: generic, EABI: aarch64, DATE: Wed Jan  8 01:49:37 UTC 2025",
+      "nvidia_l4t_core_version": "36.4.3-20250107174145",
+      "os_pretty_name": "Ubuntu 22.04.5 LTS",
+      "power_mode": {
+        "command": [
+          "nvpmodel",
+          "-q"
+        ],
+        "exit_code": 0,
+        "stderr": "",
+        "stdout": "NV Power Mode: MAXN_SUPER\n2"
+      }
+    },
+    "wakeword_service": {
+      "active_state": "inactive",
+      "load_state": "loaded",
+      "matching_processes": [],
+      "sub_state": "dead",
+      "unit_file_state": "disabled"
+    }
+  },
+  "laptop": {
+    "clock": {
+      "chrony_active": "active",
+      "chrony_enabled": "enabled",
+      "chrony_tracking": {
+        "command": [
+          "chronyc",
+          "tracking"
+        ],
+        "exit_code": 0,
+        "stderr": "",
+        "stdout": "Reference ID    : 53F3449D (83.243.68.157)\nStratum         : 2\nRef time (UTC)  : Thu Sep 17 17:24:41 2026\nSystem time     : 0.000235610 seconds slow of NTP time\nLast offset     : -0.000656971 seconds\nRMS offset      : 0.001336353 seconds\nFrequency       : 12.869 ppm slow\nResidual freq   : -0.012 ppm\nSkew            : 0.825 ppm\nRoot delay      : 0.007860791 seconds\nRoot dispersion : 0.004331414 seconds\nUpdate interval : 1027.8 seconds\nLeap status     : Normal"
+      },
+      "iso8601": "2026-09-18T01:26:39.473623+08:00",
+      "ntp_synchronized": "yes",
+      "udp_123_listeners": [
+        "UNCONN 0      0      0.0.0.0%enp4s0:123 0.0.0.0:*"
+      ]
+    },
+    "identity": {
+      "architecture": "x86_64",
+      "hostname": "lxlab",
+      "user": "lx"
+    },
+    "network": {
+      "interface": "enp4s0",
+      "ipv4_addresses": [
+        "192.168.50.1/24"
+      ],
+      "ipv4_routes": [
+        {
+          "dev": "wlo1",
+          "dst": "default",
+          "flags": [],
+          "gateway": "192.168.0.1",
+          "metric": 600,
+          "protocol": "dhcp"
+        },
+        {
+          "dev": "wlx90de801a68e6",
+          "dst": "default",
+          "flags": [],
+          "gateway": "192.168.0.1",
+          "metric": 601,
+          "protocol": "dhcp"
+        },
+        {
+          "dev": "wlo1",
+          "dst": "169.254.0.0/16",
+          "flags": [],
+          "metric": 1000,
+          "scope": "link"
+        },
+        {
+          "dev": "wlo1",
+          "dst": "192.168.0.0/24",
+          "flags": [],
+          "metric": 600,
+          "prefsrc": "192.168.0.147",
+          "protocol": "kernel",
+          "scope": "link"
+        },
+        {
+          "dev": "wlx90de801a68e6",
+          "dst": "192.168.0.0/24",
+          "flags": [],
+          "metric": 601,
+          "prefsrc": "192.168.0.170",
+          "protocol": "kernel",
+          "scope": "link"
+        },
+        {
+          "dev": "enp4s0",
+          "dst": "192.168.50.0/24",
+          "flags": [],
+          "metric": 100,
+          "prefsrc": "192.168.50.1",
+          "protocol": "kernel",
+          "scope": "link"
+        }
+      ],
+      "jetson_ping": {
+        "command": [
+          "ping",
+          "-c",
+          "3",
+          "-W",
+          "1",
+          "192.168.50.2"
+        ],
+        "exit_code": 0,
+        "stderr": "",
+        "stdout": "PING 192.168.50.2 (192.168.50.2) 56(84) bytes of data.\n64 bytes from 192.168.50.2: icmp_seq=1 ttl=64 time=0.244 ms\n64 bytes from 192.168.50.2: icmp_seq=2 ttl=64 time=0.157 ms\n64 bytes from 192.168.50.2: icmp_seq=3 ttl=64 time=0.194 ms\n\n--- 192.168.50.2 ping statistics ---\n3 packets transmitted, 3 received, 0% packet loss, time 2072ms\nrtt min/avg/max/mdev = 0.157/0.198/0.244/0.035 ms"
+      }
+    },
+    "observed_at": "2026-09-18T01:26:39.471884+08:00",
+    "python_cuda": {
+      "cuda_available": true,
+      "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+      "python_executable": "/home/lx/miniforge3/envs/robot-il/bin/python",
+      "python_version": "3.11.16",
+      "torch_cuda": "12.8",
+      "torch_version": "2.7.1+cu128"
+    },
+    "repository": {
+      "branch": "lift-ph-reproduction",
+      "head": "85e16a255d093e423b62388dec2ae8f219049aff",
+      "path": "/home/lx/robomimic",
+      "status_before_audit_write": [
+        "?? reproduction/lift_ph/configs/stage08-hil-protocol.json",
+        "?? reproduction/lift_ph/results/stage08-independent-evaluation.csv",
+        "?? reproduction/lift_ph/results/stage08-latency-summary.csv",
+        "?? reproduction/lift_ph/scripts/stage08_analyze_evaluation.py",
+        "?? reproduction/lift_ph/scripts/stage08_analyze_latency.py",
+        "?? reproduction/lift_ph/scripts/stage08_jetson_policy_server.py",
+        "?? reproduction/lift_ph/scripts/stage08_lift_sim_client.py",
+        "?? reproduction/lift_ph/scripts/stage08_protocol.py"
+      ],
+      "tracked_worktree_clean": true
+    },
+    "system": {
+      "kernel": "6.8.0-138-generic",
+      "os_pretty_name": "Ubuntu 22.04.4 LTS"
+    }
+  },
+  "provenance": {
+    "checkpoint_sha256": "4a2ebaa236f2621d0ac8ecc54e625f82ce2a374e2b908d330db92e0312314cec",
+    "evaluation_seed": 20260915,
+    "repository_branch": "lift-ph-reproduction",
+    "repository_head": "85e16a255d093e423b62388dec2ae8f219049aff"
+  },
+  "raw_evidence": {
+    "formal_evaluation_summary": {
+      "actual_sha256": "61d61627f6b27f4df86489acbc67de2efd8377c00bce48a5ea8427f8106eba50",
+      "exists": true,
+      "expected_sha256": "61d61627f6b27f4df86489acbc67de2efd8377c00bce48a5ea8427f8106eba50",
+      "match": true,
+      "path": "/home/lx/robomimic/runs/lift_ph/hil/stage08-formal100-20260918-004313.json"
+    },
+    "latency_analysis": {
+      "actual_sha256": "5df296bab84c73e77b687384171ef0f77f6fa0b0d776091954a8c88fee00252c",
+      "exists": true,
+      "expected_sha256": "5df296bab84c73e77b687384171ef0f77f6fa0b0d776091954a8c88fee00252c",
+      "match": true,
+      "path": "/home/lx/robomimic/runs/lift_ph/hil/stage08-paced-latency-analysis-20260918-001400.json"
+    },
+    "paced_latency_report": {
+      "actual_sha256": "b68c99ff9d8796538cbbd6b30a050e76c4dc6a8ce50c4510b914de3811275ea8",
+      "exists": true,
+      "expected_sha256": "b68c99ff9d8796538cbbd6b30a050e76c4dc6a8ce50c4510b914de3811275ea8",
+      "match": true,
+      "path": "/home/lx/robomimic/runs/lift_ph/hil/stage08-paced-latency-20260918-001400.json"
+    },
+    "paired_evaluation_analysis": {
+      "actual_sha256": "3e5768f0421e16d9a5109039cb4bcdb1ad97af1b734b9c409ec1131517e9e183",
+      "exists": true,
+      "expected_sha256": "3e5768f0421e16d9a5109039cb4bcdb1ad97af1b734b9c409ec1131517e9e183",
+      "match": true,
+      "path": "/home/lx/robomimic/runs/lift_ph/hil/stage08-paired-evaluation-analysis-20260918-004313.json"
+    }
+  },
+  "repository_artifacts": {
+    "evaluation_analyzer": {
+      "actual_sha256": "08c17fa9d186c91640bfb4dd887938b216cc5a3a802c31b5d654e3f58a864d3e",
+      "expected_sha256": "08c17fa9d186c91640bfb4dd887938b216cc5a3a802c31b5d654e3f58a864d3e",
+      "match": true,
+      "path": "reproduction/lift_ph/scripts/stage08_analyze_evaluation.py"
+    },
+    "independent_evaluation": {
+      "actual_sha256": "095144723ec295ae17752cf5f2e18f240fc1917c9e0be366d4c42d790a73f9ab",
+      "expected_sha256": "095144723ec295ae17752cf5f2e18f240fc1917c9e0be366d4c42d790a73f9ab",
+      "match": true,
+      "path": "reproduction/lift_ph/results/stage08-independent-evaluation.csv"
+    },
+    "latency_analyzer": {
+      "actual_sha256": "c943d968a19b6e7ee669c4ea332ffa5c369a7e17d20e6572159ca552e542c4cc",
+      "expected_sha256": "c943d968a19b6e7ee669c4ea332ffa5c369a7e17d20e6572159ca552e542c4cc",
+      "match": true,
+      "path": "reproduction/lift_ph/scripts/stage08_analyze_latency.py"
+    },
+    "latency_summary": {
+      "actual_sha256": "4a7471c69bddcd3241b9223b54fb9d33772a06398e7ab3e7205c8cbeca59d427",
+      "expected_sha256": "4a7471c69bddcd3241b9223b54fb9d33772a06398e7ab3e7205c8cbeca59d427",
+      "match": true,
+      "path": "reproduction/lift_ph/results/stage08-latency-summary.csv"
+    },
+    "policy_server": {
+      "actual_sha256": "b457a755dc52d38e54a57f33fa9735a6cf122d549341308660bbbcae538b86c3",
+      "expected_sha256": "b457a755dc52d38e54a57f33fa9735a6cf122d549341308660bbbcae538b86c3",
+      "match": true,
+      "path": "reproduction/lift_ph/scripts/stage08_jetson_policy_server.py"
+    },
+    "protocol_config": {
+      "actual_sha256": "4436233ea0f3e62f57d4c97f12f19eb206bddd24707faab33da9167f00041501",
+      "expected_sha256": "4436233ea0f3e62f57d4c97f12f19eb206bddd24707faab33da9167f00041501",
+      "match": true,
+      "path": "reproduction/lift_ph/configs/stage08-hil-protocol.json"
+    },
+    "protocol_module": {
+      "actual_sha256": "14629cd529b6fd5da70f73c4bcc6081b5c6d63e13c0430a3eb55addbbddeba28",
+      "expected_sha256": "14629cd529b6fd5da70f73c4bcc6081b5c6d63e13c0430a3eb55addbbddeba28",
+      "match": true,
+      "path": "reproduction/lift_ph/scripts/stage08_protocol.py"
+    },
+    "simulation_client": {
+      "actual_sha256": "b148d8074b581d13a0fcc76f933302d64ee44409e79b7beb11493ab7d756e9f2",
+      "expected_sha256": "b148d8074b581d13a0fcc76f933302d64ee44409e79b7beb11493ab7d756e9f2",
+      "match": true,
+      "path": "reproduction/lift_ph/scripts/stage08_lift_sim_client.py"
+    }
+  },
+  "schema_version": 1,
+  "stage": "08"
+}

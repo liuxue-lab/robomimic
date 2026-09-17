@@ -1,0 +1,124 @@
+{
+  "schema_version": 1,
+  "stage": 8,
+  "protocol_name": "robomimic-lift-ph-hil",
+  "protocol_version": 1,
+  "transport": {
+    "type": "tcp",
+    "server_host": "192.168.50.2",
+    "server_port": 8765,
+    "expected_client_host": "192.168.50.1",
+    "connection_model": "single_persistent_connection",
+    "magic_ascii": "RMH1",
+    "outer_length_prefix_bytes": 4,
+    "outer_length_prefix_byte_order": "big",
+    "tcp_nodelay": true,
+    "keepalive": true,
+    "connect_timeout_seconds": 5.0,
+    "functional_response_timeout_seconds": 2.0,
+    "realtime_response_timeout_seconds": 0.05,
+    "server_idle_timeout_seconds": 5.0,
+    "max_payload_bytes": 1048576
+  },
+  "encoding": {
+    "header": "utf8_json",
+    "header_length_prefix_bytes": 4,
+    "header_length_prefix_byte_order": "big",
+    "arrays": "uncompressed_contiguous_c_order",
+    "float_byte_order": "little",
+    "array_checksum": "crc32",
+    "compression": "none",
+    "pickle_allowed": false,
+    "wire_timestamp_clock": "CLOCK_REALTIME_via_time.time_ns",
+    "local_duration_clock": "CLOCK_MONOTONIC_via_time.monotonic_ns"
+  },
+  "request": {
+    "message_type": "inference_request",
+    "metadata": {
+      "episode_id": "nonempty_string",
+      "sequence_id": "nonnegative_integer",
+      "client_send_ns": "nonnegative_integer"
+    },
+    "arrays": [
+      {
+        "name": "agentview_image",
+        "dtype": "uint8",
+        "shape": [84, 84, 3]
+      },
+      {
+        "name": "robot0_eye_in_hand_image",
+        "dtype": "uint8",
+        "shape": [84, 84, 3]
+      },
+      {
+        "name": "robot0_eef_pos",
+        "dtype": "float32",
+        "shape": [3]
+      },
+      {
+        "name": "robot0_eef_quat",
+        "dtype": "float32",
+        "shape": [4]
+      },
+      {
+        "name": "robot0_gripper_qpos",
+        "dtype": "float32",
+        "shape": [2]
+      }
+    ],
+    "expected_array_payload_bytes": 42372
+  },
+  "response": {
+    "message_type": "inference_response",
+    "metadata": {
+      "episode_id": "nonempty_string",
+      "sequence_id": "nonnegative_integer",
+      "server_receive_ns": "nonnegative_integer",
+      "inference_start_ns": "nonnegative_integer",
+      "inference_end_ns": "nonnegative_integer",
+      "server_send_ns": "nonnegative_integer",
+      "status": ["ok", "error"],
+      "error_message": "string"
+    },
+    "arrays": [
+      {
+        "name": "action",
+        "dtype": "float32",
+        "shape": [7]
+      }
+    ],
+    "expected_array_payload_bytes": 28
+  },
+  "sequence": {
+    "first_sequence_id": 0,
+    "reset_sequence_each_episode": true,
+    "require_strictly_increasing": true,
+    "reject_duplicates": true,
+    "reject_out_of_order": true,
+    "require_response_match": true
+  },
+  "safety": {
+    "max_connections": 1,
+    "max_episode_id_utf8_bytes": 128,
+    "max_error_message_utf8_bytes": 1024,
+    "reject_unknown_message_type": true,
+    "reject_unknown_arrays": true,
+    "reject_missing_arrays": true,
+    "reject_shape_mismatch": true,
+    "reject_dtype_mismatch": true,
+    "reject_nonfinite_floats": true,
+    "action_absolute_limit": 1.001,
+    "zero_action_on_error": true,
+    "max_consecutive_timeouts": 3
+  },
+  "evaluation": {
+    "control_frequency_hz": 20,
+    "control_period_ns": 50000000,
+    "checkpoint_epoch": 80,
+    "checkpoint_sha256": "4a2ebaa236f2621d0ac8ecc54e625f82ce2a374e2b908d330db92e0312314cec",
+    "evaluation_seed": 20260915,
+    "rollouts": 100,
+    "horizon": 400,
+    "terminate_on_success": true
+  }
+}
